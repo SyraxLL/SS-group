@@ -1512,7 +1512,7 @@ body.dark-theme .top-nav {
         padding: 0 8px !important;
         margin: 0 !important;
     }
-    
+
     body.dark-theme .sidebar {
         background: rgba(15, 23, 42, 0.85) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -2332,6 +2332,7 @@ body.dark-theme .user-profile:hover {
         opacity: 0;
         transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2403,7 +2404,7 @@ body.dark-theme .subtab-btn.active {
     .profile-basic-form {
         grid-template-columns: 1fr;
     }
-    
+
     .profile-bottom-grid {
         grid-template-columns: 1fr;
         gap: 15px;
@@ -2414,7 +2415,8 @@ body.dark-theme .subtab-btn.active {
    10. AÇIK RENK ÜST PANEL (LOGO İÇİN OPTİMİZASYON)
    ===================================================================== */
 .top-nav {
-    background: rgba(226, 232, 240, 0.96) !important; /* Lighter slate gray (Slate 200) */
+    background: rgba(203, 213, 225, 0.96) !important;
+    /* Darker slate gray (Slate 300) */
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(15, 23, 42, 0.12) !important;
@@ -2424,14 +2426,17 @@ body.dark-theme .subtab-btn.active {
 }
 
 body.dark-theme .top-nav {
-    background: rgba(218, 224, 233, 0.96) !important; /* Slightly darker slate gray for dark theme */
+    background: rgba(180, 192, 208, 0.96) !important;
+    /* Slightly darker slate gray for dark theme */
     border-bottom: 1px solid rgba(15, 23, 42, 0.15) !important;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
 }
 
 .nav-logo {
-    height: 62px; /* Increased by 30% from 48px */
-    max-width: 234px; /* Increased by 30% from 180px */
+    height: 62px;
+    /* Increased by 30% from 48px */
+    max-width: 234px;
+    /* Increased by 30% from 180px */
     object-fit: contain;
     display: block;
     transition: var(--transition);
@@ -2441,9 +2446,12 @@ body.dark-theme .top-nav {
     .top-nav {
         padding: 0 16px !important;
     }
+
     .nav-logo {
-        height: 52px; /* Increased by 30% from 40px */
-        max-width: 195px; /* Increased by 30% from 150px */
+        height: 52px;
+        /* Increased by 30% from 40px */
+        max-width: 195px;
+        /* Increased by 30% from 150px */
     }
 }
 
@@ -2451,7 +2459,8 @@ body.dark-theme .top-nav {
 .header-clock-widget {
     background: rgba(15, 23, 42, 0.05) !important;
     border: 1px solid rgba(15, 23, 42, 0.08) !important;
-    color: #334155 !important; /* Dark slate text */
+    color: #334155 !important;
+    /* Dark slate text */
 }
 
 .header-clock-widget i {
@@ -2459,17 +2468,20 @@ body.dark-theme .top-nav {
 }
 
 .dynamic-greeting {
-    color: #0f172a !important; /* Darkest slate text */
+    color: #0f172a !important;
+    /* Darkest slate text */
 }
 
 .realtime-clock {
-    color: #0f172a !important; /* Darkest slate text */
+    color: #0f172a !important;
+    /* Darkest slate text */
     background: rgba(0, 0, 0, 0.05) !important;
     border: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
 
 .realtime-date {
-    color: #64748b !important; /* Slate muted */
+    color: #64748b !important;
+    /* Slate muted */
 }
 
 .theme-toggle-btn {
