@@ -167,10 +167,7 @@ $extra_pay = 200.00;
     <nav class="top-nav">
         <!-- Logo and Brand -->
         <div class="nav-brand">
-            <div class="brand-icon">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-            </div>
-            <span class="brand-name">SS Group</span>
+            <img src="sslogo.png" alt="SS Group Logo" class="nav-logo">
         </div>
 
         <!-- Real-Time Clock & Dynamic Greeting Widget -->
@@ -484,20 +481,20 @@ $extra_pay = 200.00;
                 </div>
 
                 <!-- Filters -->
-                <div class="filter-card" style="margin-top: 25px; padding: 20px;">
-                    <form method="GET" action="dashboard.php" class="filter-form" id="tab-puantaj-filter" style="display:flex; align-items:flex-end; gap:16px; flex-wrap:wrap;">
+                <div class="filter-card">
+                    <form method="GET" action="dashboard.php" class="filter-form" id="tab-puantaj-filter">
                         <input type="hidden" name="tab" value="puantaj">
                         
-                        <div class="filter-group" style="width: 260px; max-width: 100%; margin-bottom:0;">
+                        <div class="filter-group">
                             <label for="filter_month" class="filter-label">Ay Seçimi</label>
-                            <select id="filter_month" name="filter_month" class="filter-input" style="width:100%;">
+                            <select id="filter_month" name="filter_month" class="filter-input">
                                 <option value="">Tüm Dönemler</option>
                                 <option value="2026-06" <?php echo $filter_month === '2026-06' ? 'selected' : ''; ?>>Haziran 2026</option>
                                 <option value="2026-05" <?php echo $filter_month === '2026-05' ? 'selected' : ''; ?>>Mayıs 2026</option>
                             </select>
                         </div>
 
-                        <div class="filter-actions" style="margin-bottom:0; display:flex; gap:8px;">
+                        <div class="filter-actions">
                             <button type="submit" class="btn-filter">
                                 <i class="fa-solid fa-filter"></i> Filtrele
                             </button>
@@ -640,7 +637,7 @@ $extra_pay = 200.00;
                                                 data-overtime-hours="<?php echo $overtime_hours; ?>"
                                                 data-daily-wage="<?php echo $daily_wage; ?>"
                                                 data-extra-pay="<?php echo $extra_pay; ?>">
-                                                <td data-label="Personel">
+                                                <td data-label="Personel" class="hide-on-mobile">
                                                     <span style="font-weight:600;"><?php echo htmlspecialchars($row['full_name']); ?></span>
                                                 </td>
                                                 <td data-label="Başlama" class="cell-date">
@@ -649,22 +646,22 @@ $extra_pay = 200.00;
                                                 <td data-label="Çıkış" class="cell-time">
                                                     <?php echo $end_formatted; ?>
                                                 </td>
-                                                <td data-label="Gün">
+                                                <td data-label="Gün" class="hide-on-mobile">
                                                     <?php echo $day_count; ?>
                                                 </td>
-                                                <td data-label="Çalışma Saati">
+                                                <td data-label="Çalışma Saati" class="hide-on-mobile">
                                                     <?php echo $work_hours; ?>
                                                 </td>
                                                 <td data-label="Mesai Saati">
                                                     <?php echo $overtime_hours; ?>
                                                 </td>
-                                                <td data-label="Günlük Ücret">
+                                                <td data-label="Günlük Ücret" class="hide-on-mobile">
                                                     ₺<?php echo number_format($daily_wage, 2, ',', '.'); ?>
                                                 </td>
                                                 <td data-label="Mesai Hakediş">
                                                     ₺<?php echo number_format($overtime_pay, 2, ',', '.'); ?>
                                                 </td>
-                                                <td data-label="Ekstra Ücret">
+                                                <td data-label="Ekstra Ücret" class="hide-on-mobile">
                                                     ₺<?php echo number_format($extra_pay, 2, ',', '.'); ?>
                                                 </td>
                                                 <td data-label="Toplam Tutar" style="color: var(--success); font-weight: 700;">
@@ -783,7 +780,7 @@ $extra_pay = 200.00;
                     <p class="section-subtitle">Kişisel bilgilerinizi inceleyebilir, iletişim, IBAN ve güvenlik tercihlerinizi kolayca yönetebilirsiniz.</p>
                 </div>
 
-                <div class="profile-layout" style="margin-top: 25px; display: grid; grid-template-columns: 280px 1fr; gap: 25px; align-items: start;">
+                <div class="profile-layout">
                     <!-- Sol Sütun: Çalışan Kimlik Kartı -->
                     <div style="display: flex; flex-direction: column; gap: 20px;">
                         
@@ -825,7 +822,7 @@ $extra_pay = 200.00;
                                 </div>
                             </div>
                             
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                            <div class="profile-stats-grid">
                                 <!-- Kart 1: Günlük Ücret -->
                                 <div style="text-align: center; border: 1px solid var(--border-color); background: rgba(255,255,255,0.01); border-radius: 12px; padding: 16px; transition: var(--transition);">
                                     <div style="width: 44px; height: 44px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 18px; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);">
@@ -861,7 +858,7 @@ $extra_pay = 200.00;
                         <!-- Kart 1: Temel Çalışan Bilgileri -->
                         <div class="dashboard-card" style="margin-bottom: 0;">
                             <h3 class="card-title" style="margin-bottom: 15px;"><i class="fa-solid fa-user-tag" style="color: var(--primary);"></i> Temel Çalışan Bilgileri</h3>
-                            <form action="update_profile.php" method="POST" class="grid-form" style="display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 15px; align-items: flex-end;">
+                            <form action="update_profile.php" method="POST" class="grid-form profile-basic-form">
                                 <input type="hidden" name="action" value="update_info">
                                 <input type="hidden" name="iban" value="<?php echo htmlspecialchars($currentUser['iban'] ?? ''); ?>">
                                 <input type="hidden" name="address" value="<?php echo htmlspecialchars($currentUser['address'] ?? ''); ?>">
@@ -893,7 +890,7 @@ $extra_pay = 200.00;
                         </div>
 
                         <!-- İki sütunlu alt sıra -->
-                        <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 20px; align-items: start;">
+                        <div class="profile-bottom-grid">
                             <!-- Kart 2: Banka & IBAN Ayarları -->
                             <div class="dashboard-card" style="margin-bottom: 0; height: 100%;">
                                 <h3 class="card-title" style="margin-bottom: 15px;"><i class="fa-solid fa-building-columns" style="color: var(--primary);"></i> Banka Bilgileri</h3>

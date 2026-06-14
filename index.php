@@ -38,10 +38,9 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
     <div class="login-wrapper">
         <div class="login-card">
             <div class="login-header">
-                <div class="login-logo">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <img src="sslogo.png" alt="SS Group Logo" style="height: 70px; max-width: 200px; object-fit: contain;">
                 </div>
-                <h1 class="login-title">SS Group</h1>
                 <p class="login-subtitle">Devam Kontrol ve Takip Paneli</p>
             </div>
 
