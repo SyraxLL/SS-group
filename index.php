@@ -34,6 +34,13 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
            ===================================================================== */
         
         /* 1. Reset and Core Layout */
+        html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -44,13 +51,82 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f1f5f9;
+            /* Premium Dark Radial Gradient Background */
+            background: radial-gradient(circle at 10% 20%, #1e3a8a 0%, transparent 45%),
+                        radial-gradient(circle at 90% 80%, #701a75 0%, transparent 45%),
+                        radial-gradient(circle at 50% 15%, #311042 0%, transparent 50%),
+                        linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            background-attachment: fixed;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
             padding: 24px 16px;
+            margin: 0;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* 2. Advanced Background Mesh, Grid & Blobs */
+        .bg-mesh {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.1) 0%, rgba(2, 6, 23, 0.8) 100%);
+            pointer-events: none;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 3;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 420px;
+            height: 420px;
+            background: rgba(37, 99, 235, 0.2);
+            top: -120px;
+            left: -120px;
+        }
+
+        .blob-2 {
+            width: 520px;
+            height: 520px;
+            background: rgba(79, 70, 229, 0.18);
+            bottom: -160px;
+            right: -160px;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(8, 145, 178, 0.15);
+            top: 45%;
+            left: 55%;
         }
 
         /* 4. Elegant Card Wrapper */
@@ -61,22 +137,25 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             max-width: 420px;
             margin: auto;
             border-radius: 20px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             animation: scaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .card-border-wrap:hover {
             transform: translateY(-4px);
-            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.1);
+            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25);
+            background: rgba(255, 255, 255, 0.65);
         }
 
-        /* 5. Clean Solid Grayish Card Container */
+        /* 5. Glassmorphic Card Container */
         .login-card {
             width: 100%;
-            background: #f8fafc;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
             border-radius: 20px;
             padding: 44px 38px;
             position: relative;
@@ -101,7 +180,10 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
         .login-logo-wrapper {
             position: relative;
-            display: inline-block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -158,8 +240,8 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             width: 100%;
             height: 48px;
             padding: 0 16px 0 46px;
-            background: #e2e8f0;
-            border: 1px solid #cbd5e1;
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(15, 23, 42, 0.08);
             border-radius: 10px;
             font-family: inherit;
             font-size: 14px;
@@ -167,13 +249,13 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             transition: all 0.2s ease;
         }
 
-        #password {
-            padding-right: 46px;
+        .form-input:hover {
+            border-color: rgba(37, 99, 235, 0.3);
+            background: rgba(255, 255, 255, 0.65);
         }
 
-        .form-input:hover {
-            border-color: #94a3b8;
-            background: #f1f5f9;
+        #password {
+            padding-right: 46px;
         }
 
         .form-input:focus {
@@ -263,25 +345,26 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             color: #dc2626;
         }
 
-        /* 11. Info Box Credentials (Grayish Accent) */
+        /* 11. Info Box Credentials (Glassy Accent) */
         .info-box {
             margin-top: 26px;
             padding: 16px;
-            border-radius: 10px;
-            background: #cbd5e1;
-            border: 1px solid #94a3b8;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(15, 23, 42, 0.06);
             transition: all 0.2s ease;
         }
 
         .info-box:hover {
-            background: #cbd5e1;
-            border-color: #64748b;
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(37, 99, 235, 0.25);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.04);
         }
 
         .info-title {
             font-size: 11.5px;
             font-weight: 700;
-            color: #334155;
+            color: #2563eb;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -300,15 +383,15 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         }
 
         .info-text:hover {
-            background: rgba(15, 23, 42, 0.05);
+            background: rgba(37, 99, 235, 0.05);
             padding-left: 12px;
         }
 
         .info-text code {
             font-family: monospace;
             font-weight: 600;
-            background: #f1f5f9;
-            padding: 1px 5px;
+            background: rgba(37, 99, 235, 0.08);
+            padding: 2px 6px;
             border-radius: 4px;
             margin-left: 2px;
         }
@@ -329,7 +412,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             }
 
             .login-logo-wrapper img {
-                height: 60px !important;
+                height: 78px !important;
             }
         }
     </style>
@@ -337,6 +420,12 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
 <body>
 
+    <!-- Background Design with Grid and Drift Blobs -->
+    <div class="bg-mesh"></div>
+    <div class="bg-grid"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
 
     <!-- Elevating Card Wrapper -->
     <div class="card-border-wrap">
@@ -346,7 +435,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             <div class="login-header">
                 <div class="login-logo-wrapper">
                     <img src="sslogo.png" alt="SS Group Logo"
-                        style="height: 72px; max-width: 220px; object-fit: contain; display: block; margin: 0 auto;">
+                        style="height: 94px; max-width: 286px; object-fit: contain; display: block; margin: 0 auto;">
                 </div>
                 <p class="login-subtitle">Devam Kontrol ve Takip Paneli</p>
             </div>
