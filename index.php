@@ -19,7 +19,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Puantaj Giriş Sistemi Kullanıcı Paneli Giriş Ekranı.">
     <title>Giriş Yap | SS Group</title>
     <!-- Google Fonts Inter -->
@@ -398,16 +398,11 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
         /* 12. Media Queries for Mobile Responsiveness */
         @media (max-width: 480px) {
-            body {
-                padding: 16px;
-            }
-
             .card-border-wrap {
                 border-radius: 16px;
             }
 
             .login-card {
-                padding: 36px 24px;
                 border-radius: 16px;
             }
 
