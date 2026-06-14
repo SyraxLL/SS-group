@@ -34,11 +34,13 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
            ===================================================================== */
         
         /* 1. Reset and Core Layout */
-        html {
+        html, body {
             height: 100%;
             width: 100%;
             margin: 0;
             padding: 0;
+            overflow: hidden; /* Prevent scrolling/sliding completely */
+            position: fixed;  /* Lock viewport on iOS Safari */
         }
 
         * {
@@ -57,17 +59,11 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                         radial-gradient(circle at 50% 15%, #311042 0%, transparent 50%),
                         linear-gradient(135deg, #0f172a 0%, #020617 100%);
             background-attachment: fixed;
-            min-height: 100vh;
-            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
             padding: 24px 16px;
-            margin: 0;
-            width: 100%;
-            overflow-x: hidden;
         }
 
         /* 2. Advanced Background Mesh, Grid & Blobs */
@@ -400,14 +396,25 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         @media (max-width: 480px) {
             .card-border-wrap {
                 border-radius: 16px;
+                max-width: 92%;
             }
 
             .login-card {
                 border-radius: 16px;
+                padding: 30px 24px;
+            }
+
+            .info-box {
+                margin-top: 16px;
+                padding: 12px;
+            }
+
+            .login-header {
+                margin-bottom: 16px;
             }
 
             .login-logo-wrapper img {
-                height: 78px !important;
+                height: 64px !important;
             }
         }
     </style>
