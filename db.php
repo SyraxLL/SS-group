@@ -35,11 +35,16 @@ if (!function_exists('loadEnv')) {
 // Projenin kök dizinindeki .env dosyasını yükle
 loadEnv(__DIR__ . '/.env');
 
-$db_host    = $_ENV['DB_HOST'] ?? '127.0.0.1';
-$db_name    = $_ENV['DB_NAME'] ?? 'ss_group';
-$db_user    = $_ENV['DB_USER'] ?? 'root';
-$db_pass    = $_ENV['DB_PASS'] ?? '';
-$db_charset = $_ENV['DB_CHARSET'] ?? 'utf8mb4';
+// Çevresel değişkenleri en uyumlu ve güvenli şekilde oku ($_ENV, $_SERVER veya getenv)
+$db_host    = $_ENV['DB_HOST'] ?? $_SERVER['DB_HOST'] ?? getenv('DB_HOST') ?: '127.0.0.1';
+$db_name    = $_ENV['DB_NAME'] ?? $_SERVER['DB_NAME'] ?? getenv('DB_NAME') ?: 'ss_group';
+$db_user    = $_ENV['DB_USER'] ?? $_SERVER['DB_USER'] ?? getenv('DB_USER') ?: 'root';
+$db_pass    = $_ENV['DB_PASS'] ?? $_SERVER['DB_PASS'] ?? getenv('DB_PASS');
+$db_charset = $_ENV['DB_CHARSET'] ?? $_SERVER['DB_CHARSET'] ?? getenv('DB_CHARSET') ?: 'utf8mb4';
+
+if ($db_pass === false) {
+    $db_pass = '';
+}
 
 try {
     $dsn = "mysql:host=$db_host;dbname=$db_name;charset=$db_charset";
