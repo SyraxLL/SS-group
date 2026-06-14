@@ -30,9 +30,9 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
     <style>
         /* =====================================================================
-           PREMIUM STATIC VIBRANT CSS - REDESIGNED LOGIN SCREEN (350+ Lines)
+           PREMIUM STATIC SLATE GRAY DESIGN - CLEAN & SIMPLE (NO NEON)
            ===================================================================== */
-
+        
         /* 1. Reset and Core Layout */
         * {
             box-sizing: border-box;
@@ -44,175 +44,53 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
         body {
             font-family: 'Inter', sans-serif;
-            /* Simple and Premium Grayish Background */
-            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-            background-attachment: fixed;
+            background: #f1f5f9;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
             padding: 24px 16px;
         }
 
-        /* 2. Static Background Grid overlay (no movement) */
-        .bg-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            background-position: center;
-            mask-image: radial-gradient(circle, black, transparent 75%);
-            -webkit-mask-image: radial-gradient(circle, black, transparent 75%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* Static blurred color blobs (no movement/animations) */
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            z-index: 3;
-            opacity: 0.55;
-        }
-
-        .blob-1 {
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(37, 99, 235, 0) 70%);
-            top: -100px;
-            left: -100px;
-        }
-
-        .blob-2 {
-            width: 550px;
-            height: 550px;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.28) 0%, rgba(147, 51, 234, 0) 70%);
-            bottom: -150px;
-            right: -150px;
-        }
-
-        .blob-3 {
-            width: 320px;
-            height: 320px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.22) 0%, rgba(236, 72, 153, 0) 70%);
-            top: 50%;
-            left: 55%;
-        }
-
-        /* 3. Static Tech Outlines in background (no movement) */
-        .tech-shape {
-            position: absolute;
-            z-index: 2;
-            pointer-events: none;
-            opacity: 0.22;
-        }
-
-        .shape-circle {
-            width: 550px;
-            height: 550px;
-            border: 2px dashed rgba(37, 99, 235, 0.4);
-            border-radius: 50%;
-            top: -120px;
-            right: -120px;
-        }
-
-        .shape-hexa {
-            width: 320px;
-            height: 320px;
-            border: 1.5px solid rgba(147, 51, 234, 0.4);
-            border-radius: 40px;
-            bottom: -60px;
-            left: -60px;
-            transform: rotate(45deg);
-        }
-
-        .shape-cross-1 {
-            top: 22%;
-            left: 14%;
-            font-size: 26px;
-            color: rgba(37, 99, 235, 0.6);
-            font-weight: 300;
-        }
-
-        .shape-cross-2 {
-            bottom: 24%;
-            right: 16%;
-            font-size: 30px;
-            color: rgba(6, 182, 212, 0.6);
-            font-weight: 300;
-        }
-
-        .shape-bracket-1 {
-            top: 14%;
-            right: 22%;
-            font-size: 34px;
-            color: rgba(147, 51, 234, 0.5);
-            font-family: monospace;
-        }
-
-        .shape-bracket-2 {
-            bottom: 18%;
-            left: 20%;
-            font-size: 34px;
-            color: rgba(37, 99, 235, 0.5);
-            font-family: monospace;
-        }
-
-        /* 4. Volumetric Elevating Card Wrapper (Static entry, hover active) */
+        /* 4. Elegant Card Wrapper */
         .card-border-wrap {
             position: relative;
             z-index: 10;
             width: 100%;
             max-width: 420px;
-            padding: 1px;
-            border-radius: 26px;
-            background: rgba(255, 255, 255, 0.55);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
-                0 1px 0 rgba(255, 255, 255, 0.6) inset;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin: auto;
+            border-radius: 20px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: scaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .card-border-wrap:hover {
-            background: rgba(255, 255, 255, 0.85);
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25),
-                0 0 0 1px rgba(255, 255, 255, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.1);
         }
 
-        /* 5. Glassmorphic Card Container */
+        /* 5. Clean Solid Grayish Card Container */
         .login-card {
             width: 100%;
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-radius: 23px;
+            background: #f8fafc;
+            border-radius: 20px;
             padding: 44px 38px;
-            overflow: hidden;
             position: relative;
         }
 
-        /* Subtle depth shadow inside the card on hover */
-        .login-card::after {
-            content: '';
-            position: absolute;
-            top: -150px;
-            left: -150px;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 0%, rgba(37, 99, 235, 0) 70%);
-            pointer-events: none;
-            transition: transform 0.4s ease;
-        }
-
-        .card-border-wrap:hover .login-card::after {
-            transform: translate(30px, 30px);
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.97) translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         /* 6. Header Components */
@@ -228,27 +106,23 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         }
 
         .login-logo-wrapper:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .login-logo-wrapper img {
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.05));
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
             transition: all 0.3s ease;
         }
 
-        .login-logo-wrapper:hover img {
-            filter: drop-shadow(0 6px 12px rgba(37, 99, 235, 0.15));
-        }
-
         .login-subtitle {
-            color: #64748b;
+            color: #475569;
             font-size: 13.5px;
             font-weight: 550;
             margin-top: 12px;
             letter-spacing: -0.010em;
         }
 
-        /* 7. Input Fields & Focus Micro-Animations */
+        /* 7. Input Fields & Focus Styling */
         .form-group {
             margin-bottom: 20px;
         }
@@ -276,7 +150,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             color: #94a3b8;
             font-size: 15px;
             pointer-events: none;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             z-index: 5;
         }
 
@@ -284,13 +158,13 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             width: 100%;
             height: 48px;
             padding: 0 16px 0 46px;
-            background: rgba(255, 255, 255, 0.55);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            border-radius: 12px;
+            background: #e2e8f0;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
             font-family: inherit;
             font-size: 14px;
             color: #0f172a;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
         }
 
         #password {
@@ -298,26 +172,23 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         }
 
         .form-input:hover {
-            border-color: rgba(37, 99, 235, 0.3);
-            background: rgba(255, 255, 255, 0.75);
+            border-color: #94a3b8;
+            background: #f1f5f9;
         }
 
         .form-input:focus {
             outline: none;
             border-color: #2563eb;
             background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12),
-                0 8px 16px rgba(37, 99, 235, 0.04);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
-        .form-input:focus+.input-icon {
+        .form-input:focus + .input-icon {
             color: #2563eb;
-            transform: scale(1.1);
         }
 
         .form-group:focus-within .form-label {
             color: #2563eb;
-            transform: translateX(2px);
         }
 
         /* 8. Interactive Password Visibility Toggle */
@@ -340,7 +211,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
         .password-toggle-btn:hover {
             color: #475569;
-            background: rgba(15, 23, 42, 0.04);
+            background: #f1f5f9;
         }
 
         /* 9. Sleek Action Button */
@@ -351,7 +222,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             background: #2563eb;
             color: #ffffff;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-family: inherit;
             font-weight: 600;
             font-size: 14.5px;
@@ -360,14 +231,13 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
 
         .login-btn:hover {
             background: #1d4ed8;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
         }
 
         .login-btn:active {
@@ -393,26 +263,25 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             color: #dc2626;
         }
 
-        /* 11. Info Box Credentials */
+        /* 11. Info Box Credentials (Grayish Accent) */
         .info-box {
             margin-top: 26px;
             padding: 16px;
-            border-radius: 12px;
-            background: rgba(226, 232, 240, 0.6);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            background: #cbd5e1;
+            border: 1px solid #94a3b8;
+            transition: all 0.2s ease;
         }
 
         .info-box:hover {
-            background: rgba(203, 213, 225, 0.6);
-            border-color: rgba(37, 99, 235, 0.25);
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+            background: #cbd5e1;
+            border-color: #64748b;
         }
 
         .info-title {
             font-size: 11.5px;
             font-weight: 700;
-            color: #2563eb;
+            color: #334155;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -423,7 +292,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
         .info-text {
             font-size: 12px;
-            color: #475569;
+            color: #334155;
             line-height: 1.5;
             transition: all 0.2s ease;
             padding: 6px 8px;
@@ -431,14 +300,14 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         }
 
         .info-text:hover {
-            background: rgba(37, 99, 235, 0.06);
+            background: rgba(15, 23, 42, 0.05);
             padding-left: 12px;
         }
 
         .info-text code {
             font-family: monospace;
             font-weight: 600;
-            background: rgba(255, 255, 255, 0.55);
+            background: #f1f5f9;
             padding: 1px 5px;
             border-radius: 4px;
             margin-left: 2px;
@@ -451,13 +320,12 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             }
 
             .card-border-wrap {
-                border-radius: 20px;
-                padding: 2px;
+                border-radius: 16px;
             }
 
             .login-card {
                 padding: 36px 24px;
-                border-radius: 18px;
+                border-radius: 16px;
             }
 
             .login-logo-wrapper img {
@@ -469,19 +337,6 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
 <body>
 
-    <!-- Static Vibrant Color Background Layer -->
-    <div class="bg-grid"></div>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
-    <!-- Static Vector Outline Tech Shapes -->
-    <div class="tech-shape shape-circle"></div>
-    <div class="tech-shape shape-hexa"></div>
-    <div class="tech-shape shape-cross-1"><i class="fa-solid fa-plus"></i></div>
-    <div class="tech-shape shape-cross-2"><i class="fa-solid fa-plus"></i></div>
-    <div class="tech-shape shape-bracket-1">&lt;/&gt;</div>
-    <div class="tech-shape shape-bracket-2">{ }</div>
 
     <!-- Elevating Card Wrapper -->
     <div class="card-border-wrap">
