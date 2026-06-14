@@ -3,11 +3,43 @@
 // PUANTAJ GİRİŞ SİSTEMİ - VERİTABANI BAĞLANTI DOSYASI (db.php)
 // =====================================================================
 
-$db_host = '127.0.0.1';
-$db_name = 'ss_group';
-$db_user = 'root';
-$db_pass = ''; // XAMPP/Laragon varsayılanı boş şifredir. Gerektiğinde güncelleyin.
-$db_charset = 'utf8mb4';
+// =====================================================================
+// .ENV DOSYASI YÜKLEME YARDIMCISI (Dotenv Parser)
+// =====================================================================
+if (!function_exists('loadEnv')) {
+    function loadEnv($path) {
+        if (!file_exists($path)) {
+            return;
+        }
+        $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            // Yorum satırlarını ve boşlukları atla
+            if (empty($line) || strpos($line, '#') === 0) {
+                continue;
+            }
+            $parts = explode('=', $line, 2);
+            if (count($parts) === 2) {
+                $key = trim($parts[0]);
+                $value = trim($parts[1]);
+                // Tırnak işaretlerini temizle
+                $value = trim($value, "\"'");
+                putenv("$key=$value");
+                $_ENV[$key] = $value;
+                $_SERVER[$key] = $value;
+            }
+        }
+    }
+}
+
+// Projenin kök dizinindeki .env dosyasını yükle
+loadEnv(__DIR__ . '/.env');
+
+$db_host    = $_ENV['DB_HOST'] ?? '127.0.0.1';
+$db_name    = $_ENV['DB_NAME'] ?? 'ss_group';
+$db_user    = $_ENV['DB_USER'] ?? 'root';
+$db_pass    = $_ENV['DB_PASS'] ?? '';
+$db_charset = $_ENV['DB_CHARSET'] ?? 'utf8mb4';
 
 try {
     $dsn = "mysql:host=$db_host;dbname=$db_name;charset=$db_charset";
@@ -18,82 +50,6 @@ try {
     ];
     $pdo = new PDO($dsn, $db_user, $db_pass, $options);
     
-    // =====================================================================
-    // OTOMATİK VERİTABANI GÖÇÜ (Self-Healing Migrations)
-    // =====================================================================
-    
-    // 1. users tablosuna yeni sütunların eklenmesi
-    $cols_stmt = $pdo->query("SHOW COLUMNS FROM users");
-    $columns = $cols_stmt->fetchAll(PDO::FETCH_COLUMN);
-    
-    if (!in_array('iban', $columns)) {
-        $pdo->exec("ALTER TABLE users ADD COLUMN iban VARCHAR(34) DEFAULT NULL");
-    }
-    if (!in_array('phone', $columns)) {
-        $pdo->exec("ALTER TABLE users ADD COLUMN phone VARCHAR(20) DEFAULT NULL");
-    }
-    if (!in_array('address', $columns)) {
-        $pdo->exec("ALTER TABLE users ADD COLUMN address TEXT DEFAULT NULL");
-    }
-    if (!in_array('salary', $columns)) {
-        $pdo->exec("ALTER TABLE users ADD COLUMN salary DECIMAL(10,2) DEFAULT 0.00");
-    }
-    
-    // Örnek kullanıcıların yeni bilgilerle güncellenmesi (Eğer boşlarsa)
-    $pdo->exec("UPDATE users SET 
-        iban = 'TR560006200000012345678901', 
-        phone = '+90 (555) 123 45 67', 
-        address = 'Atatürk Mah. Vatan Cad. No:12 D:4 Ümraniye / İstanbul', 
-        salary = 45000.00 
-        WHERE id = 1 AND (iban IS NULL OR iban = '')");
-        
-    $pdo->exec("UPDATE users SET 
-        iban = 'TR560006200000098765432109', 
-        phone = '+90 (532) 987 65 43', 
-        address = 'Barbaros Mah. Dereboyu Cad. Ağaoğlu Blokları A A2, Ataşehir / İstanbul', 
-        salary = 55000.00 
-        WHERE id = 2 AND (iban IS NULL OR iban = '')");
-        
-    // 2. announcements tablosunun oluşturulması ve beslenmesi
-    $table_check_stmt = $pdo->query("SHOW TABLES LIKE 'announcements'");
-    if ($table_check_stmt->rowCount() == 0) {
-        $pdo->exec("CREATE TABLE announcements (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            title VARCHAR(255) NOT NULL,
-            content TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
-        
-        $pdo->exec("INSERT INTO announcements (id, title, content) VALUES
-            (1, 'Haziran Ayı Puantaj Onayları Hakkında', 'Değerli çalışma arkadaşlarımız, Haziran ayı puantaj kayıtlarınızı kontrol etmeniz ve varsa eksiklikleri en geç 25 Haziran mesai bitimine kadar İnsan Kaynakları departmanına bildirmeniz rica olunur.'),
-            (2, 'Yeni Sağlık Sigortası Anlaşması', 'Şirketimiz, çalışanlarımızın özel sağlık sigortası kapsamını SS Group ayrıcalığıyla genişletmiştir. Detaylar ve poliçe örneği İK klasöründe paylaşılmıştır.'),
-            (3, 'Ofis İçi Hijyen ve Çalışma Düzeni', 'Ofis ortak alanlarında sosyal düzenin ve çalışma verimliliğinin korunması amacıyla belirlenen çalışma kurallarına gösterdiğiniz hassasiyet için teşekkür ederiz.')");
-    }
-    
-    // 3. salary_history tablosunun oluşturulması ve beslenmesi
-    $table_check_stmt2 = $pdo->query("SHOW TABLES LIKE 'salary_history'");
-    if ($table_check_stmt2->rowCount() == 0) {
-        $pdo->exec("CREATE TABLE salary_history (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            user_id INT NOT NULL,
-            period VARCHAR(7) NOT NULL,
-            net_salary DECIMAL(10,2) NOT NULL,
-            overtime_pay DECIMAL(10,2) DEFAULT 0.00,
-            bonus DECIMAL(10,2) DEFAULT 0.00,
-            payslip_available TINYINT(1) DEFAULT 1,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-            UNIQUE KEY unique_user_period (user_id, period)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
-        
-        $pdo->exec("INSERT INTO salary_history (user_id, period, net_salary, overtime_pay, bonus) VALUES
-            (1, '2026-05', 45000.00, 3200.00, 5000.00),
-            (1, '2026-04', 45000.00, 1200.00, 0.00),
-            (1, '2026-03', 42000.00, 2400.00, 1500.00),
-            (2, '2026-05', 55000.00, 4800.00, 8000.00),
-            (2, '2026-04', 55000.00, 1800.00, 0.00),
-            (2, '2026-03', 50000.00, 3100.00, 2000.00)");
-    }
 } catch (\PDOException $e) {
     // Veritabanı bağlantı hatası durumunda gösterilecek şık hata arayüzü
     ?>
@@ -260,10 +216,10 @@ try {
                 <h2>Kurulum Adımları:</h2>
                 <ol>
                     <li>MySQL veritabanı sunucunuzun (XAMPP, WampServer, Laragon vb.) açık olduğundan emin olun.</li>
-                    <li>Veritabanı yönetim panelinize (phpMyAdmin) girerek <code>hr_puantaj</code> adında yeni bir veritabanı oluşturun.</li>
-                    <li>Proje klasöründeki <code>schema.sql</code> dosyasını oluşturduğunuz bu veritabanına aktarın (import edin).</li>
-                    <li>Veritabanı kullanıcı adı veya şifreniz varsayılandan farklı ise <code>db.php</code> dosyasındaki ayarları güncelleyin:
-                        <code class="code-box">$db_user = 'kullanici_adiniz';<br>$db_pass = 'sifreniz';</code>
+                    <li>Veritabanı yönetim panelinize (phpMyAdmin) girerek <code>ss_group</code> adında yeni bir veritabanı oluşturun.</li>
+                    <li>Proje klasöründeki <code>database.sql</code> dosyasını oluşturduğunuz bu veritabanına aktarın (import edin).</li>
+                    <li>Veritabanı kullanıcı adı veya şifreniz varsayılandan farklı ise <code>.env</code> dosyasındaki ayarları güncelleyin:
+                        <code class="code-box">DB_USER=kullanici_adiniz<br>DB_PASS=sifreniz</code>
                     </li>
                 </ol>
             </div>

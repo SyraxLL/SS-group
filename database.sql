@@ -1,17 +1,11 @@
 -- =====================================================================
--- PUANTAJ GİRİŞ SİSTEMİ - VERİTABANI ŞEMASI (schema.sql)
+-- PUANTAJ GİRİŞ SİSTEMİ - VERİTABANI ŞEMASI (database.sql)
 -- =====================================================================
 -- Bu dosyayı MySQL veritabanınızda (örn. phpMyAdmin veya MySQL CLI)
 -- içe aktararak tabloları ve örnek verileri otomatik olarak oluşturabilirsiniz.
 
-CREATE DATABASE IF NOT EXISTS `ss_group` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `ss_group`;
-
--- ÖNCEKİ TABLOLARI SİL (Eğer varsa hata vermemesi için sıralı silinmeli)
-DROP TABLE IF EXISTS `salary_history`;
-DROP TABLE IF EXISTS `announcements`;
-DROP TABLE IF EXISTS `puantaj_records`;
-DROP TABLE IF EXISTS `users`;
+-- CREATE DATABASE IF NOT EXISTS `ss_group` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE `ss_group`;
 
 -- 1. KULLANICILAR TABLOSU (users)
 CREATE TABLE IF NOT EXISTS `users` (
@@ -70,16 +64,16 @@ CREATE TABLE IF NOT EXISTS `salary_history` (
 
 
 -- =====================================================================
--- ÖRNEK VERİLERİN EKLEMESİ
+-- ÖRNEK VERİLERİN EKLEMESİ (INSERT IGNORE)
 -- =====================================================================
 
 -- NOT: Şifreler bcrypt algoritması ile şifrelenmiştir. (Şifreler: ahmet123 ve mehmet456)
-INSERT INTO `users` (`id`, `username`, `password_hash`, `full_name`, `email`, `department`, `company`, `avatar_url`, `iban`, `phone`, `address`, `salary`) VALUES
+INSERT IGNORE INTO `users` (`id`, `username`, `password_hash`, `full_name`, `email`, `department`, `company`, `avatar_url`, `iban`, `phone`, `address`, `salary`) VALUES
 (1, 'ahmet.yilmaz', '$2y$10$e0myzW.r5M3E.yLpB5.O5OfqVj.oPZqFw/mXyEwD9P3Qv.1QyZqZy', 'Ahmet Yılmaz', NULL, 'İnsan Kaynakları', 'SS Group', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150', 'TR560006200000012345678901', '+90 (555) 123 45 67', 'Atatürk Mah. Vatan Cad. No:12 D:4 Ümraniye / İstanbul', 45000.00),
 (2, 'mehmet.demir', '$2y$10$vWd2Gq.hY3gPqF5.t5.O5O2wGj.oPZqFw/mXyEwD9P3Qv.1QyZqZy', 'Mehmet Demir', NULL, 'Yazılım Geliştirme', 'SS Group', 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150', 'TR560006200000098765432109', '+90 (532) 987 65 43', 'Barbaros Mah. Dereboyu Cad. Ağaoğlu Blokları A A2, Ataşehir / İstanbul', 55000.00);
 
 -- Ahmet Yılmaz için Örnek Puantaj Verileri (Haziran 2026)
-INSERT INTO `puantaj_records` (`user_id`, `record_date`, `check_in`, `check_out`, `status`, `leave_type`, `description`) VALUES
+INSERT IGNORE INTO `puantaj_records` (`user_id`, `record_date`, `check_in`, `check_out`, `status`, `leave_type`, `description`) VALUES
 (1, '2026-06-01', '08:30:00', '17:30:00', 'Normal', NULL, 'Olağan çalışma günü.'),
 (1, '2026-06-02', '08:25:00', '17:45:00', 'Normal', NULL, 'Olağan çalışma günü.'),
 (1, '2026-06-03', '08:30:00', '19:30:00', 'Normal', NULL, 'Proje teslimi için 2 saat fazla mesai yapıldı.'),
@@ -94,7 +88,7 @@ INSERT INTO `puantaj_records` (`user_id`, `record_date`, `check_in`, `check_out`
 (1, '2026-06-16', '08:30:00', '17:30:00', 'Normal', NULL, 'Olağan çalışma günü.');
 
 -- Mehmet Demir için Örnek Puantaj Verileri (Haziran 2026)
-INSERT INTO `puantaj_records` (`user_id`, `record_date`, `check_in`, `check_out`, `status`, `leave_type`, `description`) VALUES
+INSERT IGNORE INTO `puantaj_records` (`user_id`, `record_date`, `check_in`, `check_out`, `status`, `leave_type`, `description`) VALUES
 (2, '2026-06-01', '09:00:00', '18:00:00', 'Normal', NULL, 'Backend API entegrasyonu.'),
 (2, '2026-06-02', '09:00:00', '21:00:00', 'Normal', NULL, 'Sunucu göçü çalışması nedeniyle 3 saat fazla mesai.'),
 (2, '2026-06-03', '08:55:00', '18:00:00', 'Normal', NULL, 'Olağan yazılım geliştirme çalışması.'),
@@ -107,13 +101,13 @@ INSERT INTO `puantaj_records` (`user_id`, `record_date`, `check_in`, `check_out`
 (2, '2026-06-12', '09:00:00', '18:00:00', 'Normal', NULL, 'Haftalık sprint değerlendirmesi.');
 
 -- Örnek Duyurular
-INSERT INTO `announcements` (`id`, `title`, `content`) VALUES
+INSERT IGNORE INTO `announcements` (`id`, `title`, `content`) VALUES
 (1, 'Haziran Ayı Puantaj Onayları Hakkında', 'Değerli çalışma arkadaşlarımız, Haziran ayı puantaj kayıtlarınızı kontrol etmeniz ve varsa eksiklikleri en geç 25 Haziran mesai bitimine kadar İnsan Kaynakları departmanına bildirmeniz rica olunur.'),
 (2, 'Yeni Sağlık Sigortası Anlaşması', 'Şirketimiz, çalışanlarımızın özel sağlık sigortası kapsamını SS Group ayrıcalığıyla genişletmiştir. Detaylar ve poliçe örneği İK klasöründe paylaşılmıştır.'),
 (3, 'Ofis İçi Hijyen ve Çalışma Düzeni', 'Ofis ortak alanlarında sosyal düzenin ve çalışma verimliliğinin korunması amacıyla belirlenen çalışma kurallarına gösterdiğiniz hassasiyet için teşekkür ederiz.');
 
 -- Örnek Maaş Geçmişleri
-INSERT INTO `salary_history` (`user_id`, `period`, `net_salary`, `overtime_pay`, `bonus`, `payslip_available`) VALUES
+INSERT IGNORE INTO `salary_history` (`user_id`, `period`, `net_salary`, `overtime_pay`, `bonus`, `payslip_available`) VALUES
 (1, '2026-05', 45000.00, 3200.00, 5000.00, 1),
 (1, '2026-04', 45000.00, 1200.00, 0.00, 1),
 (1, '2026-03', 42000.00, 2400.00, 1500.00, 1),
