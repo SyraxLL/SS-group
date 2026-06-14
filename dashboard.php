@@ -149,7 +149,7 @@ $extra_pay = 200.00;
         }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SS Group İnsan Kaynakları Puantaj ve Çalışan Paneli">
+    <meta name="description" content="SS Group Çalışan Paneli ve Puantaj Takip Sistemi">
     <title>Puantaj Takip Paneli | SS Group</title>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -249,7 +249,6 @@ $extra_pay = 200.00;
             <div class="sidebar-widget">
                 <span class="widget-title">Aktif Kullanıcı</span>
                 <div class="widget-name"><?php echo htmlspecialchars($currentUser['full_name']); ?></div>
-                <div class="widget-dept"><?php echo htmlspecialchars($currentUser['department']); ?></div>
                 <div class="widget-status">
                     <span class="widget-status-dot"></span>
                     <span>Sistem Aktif</span>
@@ -775,97 +774,206 @@ $extra_pay = 200.00;
                 </div>
             </section>
 
-            <!-- -----------------------------------------------------------
-                 SEKME 4: PROFİLİM PANELİ
-                 ----------------------------------------------------------- -->
+            <!-- ===========================================================
+                 SEKME 4: PROFİLİM
+                 =========================================================== -->
             <section id="panel-profile" class="tab-panel">
                 <div class="section-header">
-                    <h1 class="section-title">Profil & Kişisel Ayarlar</h1>
-                    <p class="section-subtitle">Sistemde kayıtlı kişisel bilgilerinizi görebilir, IBAN ve şifrenizi güncelleyebilirsiniz.</p>
+                    <h1 class="section-title">Çalışan Profil Portalı & Ayarlar</h1>
+                    <p class="section-subtitle">Kişisel bilgilerinizi inceleyebilir, iletişim, IBAN ve güvenlik tercihlerinizi kolayca yönetebilirsiniz.</p>
                 </div>
 
-                <div class="profile-grid" style="margin-top: 25px;">
-                    <!-- Left Profile Info Card -->
-                    <div class="dashboard-card" style="text-align: center;">
-                        <h2 style="font-size: 18px; font-weight:700;"><?php echo htmlspecialchars($currentUser['full_name']); ?></h2>
-                        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;"><?php echo htmlspecialchars($currentUser['department']); ?></p>
+                <div class="profile-layout" style="margin-top: 25px; display: grid; grid-template-columns: 280px 1fr; gap: 25px; align-items: start;">
+                    <!-- Sol Sütun: Çalışan Kimlik Kartı -->
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
                         
-                        <div style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px; text-align: left; font-size:13px; display:flex; flex-direction:column; gap:10px;">
-                            <div>
-                                <span style="color:var(--text-secondary); font-size:11px; text-transform:uppercase;">Kullanıcı Adı:</span>
-                                <div style="font-weight:600; color:var(--text-primary); margin-top: 2px;">@<?php echo htmlspecialchars($currentUser['username']); ?></div>
-                            </div>
-                            <div>
-                                <span style="color:var(--text-secondary); font-size:11px; text-transform:uppercase;">Firma / İşveren:</span>
-                                <div style="font-weight:600; color:var(--text-primary); margin-top: 2px;"><?php echo htmlspecialchars($currentUser['company']); ?></div>
+                        <!-- Profil Kimlik Kartı (Yenilikçi Tasarım) -->
+                        <div class="dashboard-card" style="text-align: center; position: relative; overflow: hidden; padding: 35px 20px; border-radius: 20px; background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);">
+                            <!-- Mesh Gradient Background Effect -->
+                            <div style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%); pointer-events: none; z-index: 1;"></div>
+                            <div style="position: absolute; bottom: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0) 70%); pointer-events: none; z-index: 1;"></div>
+                            
+                            <div style="position: relative; z-index: 2;">
+                                <!-- Avatar Wrapper with Gradient Ring -->
+                                <div style="width: 108px; height: 108px; margin: 0 auto 20px auto; position: relative; padding: 4px; background: linear-gradient(135deg, var(--primary) 0%, #10b981 100%); border-radius: 50%; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);">
+                                    <div style="font-size: 34px; font-weight: 800; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--bg-surface); color: var(--primary); border-radius: 50%;"><?php echo $userInitials; ?></div>
+                                    <span class="profile-online-dot" style="width: 16px; height: 16px; border: 3px solid var(--bg-surface); right: 2px; bottom: 2px; box-shadow: 0 0 8px var(--success);"></span>
+                                </div>
+
+                                <h2 style="font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 8px; letter-spacing: -0.02em;"><?php echo htmlspecialchars($currentUser['full_name']); ?></h2>
+                                
+                                <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-sidebar-secondary); font-size: 11px; font-weight: 700; padding: 5px 16px; border-radius: 99px; margin-top: 5px; box-shadow: var(--shadow-sm);">
+                                    <i class="fa-solid fa-building" style="font-size: 10px; color: var(--primary);"></i>
+                                    <span><?php echo htmlspecialchars($currentUser['company']); ?></span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right Info / Password Edit Card -->
-                    <div style="display:flex; flex-direction:column; gap:25px;">
+                    <!-- Sağ Sütun: Tüm Ayarlar Kartları (Hep Beraber Görünür) -->
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
                         
-                        <!-- Personal Info Update Form -->
-                        <div class="dashboard-card" style="margin-bottom:0;">
-                            <h2 class="card-title"><i class="fa-solid fa-address-card"></i> İletişim Bilgileri & IBAN Ayarları</h2>
-                            <form action="update_profile.php" method="POST" class="grid-form">
-                                <input type="hidden" name="action" value="update_info">
-                                
-                                <div class="form-group full-width">
-                                    <label for="profile_phone" class="form-label">Telefon Numarası</label>
-                                    <input type="text" id="profile_phone" name="phone" class="form-input" style="padding-left:16px;" placeholder="+90 (555) 000 00 00" value="<?php echo htmlspecialchars($currentUser['phone'] ?? ''); ?>">
+                        <!-- Yeni Bölüm: Çalışan Bilgilerim (Kartı) -->
+                        <div class="dashboard-card" style="margin-bottom: 0;">
+                            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+                                <div style="width: 42px; height: 42px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 18px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);">
+                                    <i class="fa-solid fa-address-card"></i>
                                 </div>
-                                
-                                <div class="form-group full-width">
-                                    <label for="profile_iban" class="form-label">Maaş Ödeme IBAN Numarası</label>
-                                    <div class="iban-box">
-                                        <input type="text" id="profile_iban" name="iban" class="form-input" style="padding-left:16px; border:none; background:none;" placeholder="TR00..." value="<?php echo htmlspecialchars($currentUser['iban'] ?? ''); ?>">
-                                        <button type="button" class="iban-btn-copy" onclick="copyIban()" title="Panoya Kopyala">
-                                            <i class="fa-solid fa-copy"></i>
-                                        </button>
+                                <div>
+                                    <h3 style="font-size: 16px; font-weight: 750; color: var(--text-primary); margin: 0; border: none; padding: 0;">Çalışan Bilgilerim</h3>
+                                    <p style="font-size: 12px; color: var(--text-muted); margin: 3px 0 0 0;">Günlük kazanç, mesai tutarı ve çalışma saati bilgileriniz aşağıdadır.</p>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                                <!-- Kart 1: Günlük Ücret -->
+                                <div style="text-align: center; border: 1px solid var(--border-color); background: rgba(255,255,255,0.01); border-radius: 12px; padding: 16px; transition: var(--transition);">
+                                    <div style="width: 44px; height: 44px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 18px; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);">
+                                        <i class="fa-solid fa-money-bill-wave"></i>
                                     </div>
+                                    <div style="font-size: 12px; font-weight: 650; color: var(--text-muted); margin-bottom: 4px;">Günlük Ücret</div>
+                                    <div style="font-size: 18px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">₺600,00</div>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Günlük kazancınız</div>
                                 </div>
                                 
-                                <div class="form-group full-width">
-                                    <label for="profile_address" class="form-label">Ev Adresi</label>
-                                    <textarea id="profile_address" name="address" class="form-input" style="padding-left:16px; min-height:80px; resize:vertical;" placeholder="Adresiniz..."><?php echo htmlspecialchars($currentUser['address'] ?? ''); ?></textarea>
+                                <!-- Kart 2: Mesai Ücreti -->
+                                <div style="text-align: center; border: 1px solid var(--border-color); background: rgba(255,255,255,0.01); border-radius: 12px; padding: 16px; transition: var(--transition);">
+                                    <div style="width: 44px; height: 44px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 18px; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);">
+                                        <i class="fa-solid fa-clock"></i>
+                                    </div>
+                                    <div style="font-size: 12px; font-weight: 650; color: var(--text-muted); margin-bottom: 4px;">Mesai Ücreti</div>
+                                    <div style="font-size: 18px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">₺100,00</div>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Saatlik fazla mesai kazancı</div>
                                 </div>
 
-                                <div class="full-width" style="text-align: right;">
-                                    <button type="submit" class="btn-primary">
-                                        <i class="fa-solid fa-floppy-disk"></i> Bilgileri Kaydet
+                                <!-- Kart 3: Günlük Çalışma Saati -->
+                                <div style="text-align: center; border: 1px solid var(--border-color); background: rgba(255,255,255,0.01); border-radius: 12px; padding: 16px; transition: var(--transition);">
+                                    <div style="width: 44px; height: 44px; background: #f97316; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 18px; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.25);">
+                                        <i class="fa-solid fa-hourglass-half"></i>
+                                    </div>
+                                    <div style="font-size: 12px; font-weight: 650; color: var(--text-muted); margin-bottom: 4px;">Günlük Çalışma Saati</div>
+                                    <div style="font-size: 18px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">4 h</div>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Normal çalışma süresi</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kart 1: Temel Çalışan Bilgileri -->
+                        <div class="dashboard-card" style="margin-bottom: 0;">
+                            <h3 class="card-title" style="margin-bottom: 15px;"><i class="fa-solid fa-user-tag" style="color: var(--primary);"></i> Temel Çalışan Bilgileri</h3>
+                            <form action="update_profile.php" method="POST" class="grid-form" style="display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 15px; align-items: flex-end;">
+                                <input type="hidden" name="action" value="update_info">
+                                <input type="hidden" name="iban" value="<?php echo htmlspecialchars($currentUser['iban'] ?? ''); ?>">
+                                <input type="hidden" name="address" value="<?php echo htmlspecialchars($currentUser['address'] ?? ''); ?>">
+
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Ad Soyad</label>
+                                    <input type="text" class="form-input" style="padding-left:14px; padding-top: 9px; padding-bottom: 9px; background: rgba(255,255,255,0.02); color: var(--text-muted); cursor: not-allowed;" value="<?php echo htmlspecialchars($currentUser['full_name']); ?>" disabled>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Firma / İşveren</label>
+                                    <input type="text" class="form-input" style="padding-left:14px; padding-top: 9px; padding-bottom: 9px; background: rgba(255,255,255,0.02); color: var(--text-muted); cursor: not-allowed;" value="<?php echo htmlspecialchars($currentUser['company']); ?>" disabled>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="profile_phone" class="form-label" style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Telefon Numarası</label>
+                                    <div style="position: relative;">
+                                        <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 12px;"><i class="fa-solid fa-phone"></i></span>
+                                        <input type="text" id="profile_phone" name="phone" class="form-input" style="padding-left:36px; padding-top: 9px; padding-bottom: 9px;" placeholder="+90 (555) 000 00 00" value="<?php echo htmlspecialchars($currentUser['phone'] ?? ''); ?>">
+                                    </div>
+                                </div>
+
+                                <div style="grid-column: span 3; text-align: right; margin-top: 5px;">
+                                    <button type="submit" class="btn-primary" style="padding: 8px 16px; font-size: 13px;">
+                                        <i class="fa-solid fa-floppy-disk"></i> Bilgileri Güncelle
                                     </button>
                                 </div>
                             </form>
                         </div>
 
-                        <!-- Password Change Form -->
-                        <div class="dashboard-card">
-                            <h2 class="card-title"><i class="fa-solid fa-key"></i> Şifre Değiştir</h2>
-                            <form action="update_profile.php" method="POST" class="grid-form">
-                                <input type="hidden" name="action" value="change_password">
-                                
-                                <div class="form-group full-width">
-                                    <label for="current_password" class="form-label">Mevcut Şifre</label>
-                                    <input type="password" id="current_password" name="current_password" class="form-input" style="padding-left:16px;" required autocomplete="current-password">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="new_password" class="form-label">Yeni Şifre</label>
-                                    <input type="password" id="new_password" name="new_password" class="form-input" style="padding-left:16px;" required autocomplete="new-password">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="new_password_confirm" class="form-label">Yeni Şifre Tekrar</label>
-                                    <input type="password" id="new_password_confirm" name="new_password_confirm" class="form-input" style="padding-left:16px;" required autocomplete="new-password">
-                                </div>
+                        <!-- İki sütunlu alt sıra -->
+                        <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 20px; align-items: start;">
+                            <!-- Kart 2: Banka & IBAN Ayarları -->
+                            <div class="dashboard-card" style="margin-bottom: 0; height: 100%;">
+                                <h3 class="card-title" style="margin-bottom: 15px;"><i class="fa-solid fa-building-columns" style="color: var(--primary);"></i> Banka Bilgileri</h3>
+                                <form action="update_profile.php" method="POST" class="grid-form" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <input type="hidden" name="action" value="update_info">
+                                    <input type="hidden" name="phone" value="<?php echo htmlspecialchars($currentUser['phone'] ?? ''); ?>">
+                                    <input type="hidden" name="address" value="<?php echo htmlspecialchars($currentUser['address'] ?? ''); ?>">
 
-                                <div class="full-width" style="text-align: right;">
-                                    <button type="submit" class="btn-primary" style="background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%);">
-                                        <i class="fa-solid fa-key"></i> Şifreyi Güncelle
-                                    </button>
-                                </div>
-                            </form>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="profile_iban" class="form-label" style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">IBAN Numarası</label>
+                                        <div class="iban-box" style="display: flex; align-items: center; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-surface-hover); padding-right: 6px; overflow: hidden; transition: all 0.3s ease;">
+                                            <span style="padding-left: 12px; color: var(--text-muted); font-weight: 600; font-size: 13px;">TR</span>
+                                            <input type="text" id="profile_iban" name="iban" class="form-input" style="border:none; background:none; flex: 1; padding-left: 6px; font-family: monospace; font-size: 13px; letter-spacing: 0.5px; padding-top: 9px; padding-bottom: 9px;" placeholder="24 haneli IBAN girin..." value="<?php echo htmlspecialchars(substr($currentUser['iban'] ?? '', 2)); ?>">
+                                            <button type="button" class="iban-btn-copy" onclick="copyIban()" title="Panoya Kopyala" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 6px; transition: color 0.2s ease;">
+                                                <i class="fa-solid fa-copy" style="font-size: 12px;"></i>
+                                            </button>
+                                        </div>
+                                        <span id="bank-detector-text" style="display: inline-block; font-size: 10px; margin-top: 4px; font-weight: 600; color: var(--success); min-height: 14px;"></span>
+                                    </div>
+
+                                    <div style="background: rgba(37, 99, 235, 0.03); border: 1px solid rgba(37, 99, 235, 0.1); border-radius: 12px; padding: 10px; display: flex; gap: 8px; align-items: flex-start;">
+                                        <i class="fa-solid fa-circle-info" style="color: var(--primary); font-size: 13px; margin-top: 1px;"></i>
+                                        <div style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">
+                                            IBAN hesabınızın adınıza kayıtlı olduğundan emin olun. Maaş ödemeleriniz bu hesaba aktarılacaktır.
+                                        </div>
+                                    </div>
+
+                                    <div style="text-align: right; margin-top: 5px;">
+                                        <button type="submit" class="btn-primary" style="padding: 8px 16px; font-size: 13px;">
+                                            <i class="fa-solid fa-floppy-disk"></i> IBAN Kaydet
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Kart 3: Şifre & Güvenlik -->
+                            <div class="dashboard-card" style="margin-bottom: 0; height: 100%;">
+                                <h3 class="card-title" style="margin-bottom: 15px;"><i class="fa-solid fa-key" style="color: var(--primary);"></i> Şifre Yenileme</h3>
+                                <form action="update_profile.php" method="POST" class="grid-form" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <input type="hidden" name="action" value="change_password">
+                                    
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="current_password" class="form-label" style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Mevcut Şifre</label>
+                                        <div style="position: relative;">
+                                            <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 12px;"><i class="fa-solid fa-lock"></i></span>
+                                            <input type="password" id="current_password" name="current_password" class="form-input" style="padding-left: 36px; padding-top: 9px; padding-bottom: 9px;" required autocomplete="current-password" placeholder="Mevcut şifreniz">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="new_password" class="form-label" style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Yeni Şifre</label>
+                                        <div style="position: relative;">
+                                            <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 12px;"><i class="fa-solid fa-key"></i></span>
+                                            <input type="password" id="new_password" name="new_password" class="form-input" style="padding-left: 36px; padding-top: 9px; padding-bottom: 9px;" required autocomplete="new-password" placeholder="En az 6 karakter" onkeyup="checkPasswordStrength(this.value)">
+                                        </div>
+                                        <div style="margin-top: 5px;">
+                                            <div style="display: flex; height: 3px; gap: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden;">
+                                                <div id="strength-bar-1" style="flex: 1; height: 100%; transition: background-color 0.3s ease;"></div>
+                                                <div id="strength-bar-2" style="flex: 1; height: 100%; transition: background-color 0.3s ease;"></div>
+                                                <div id="strength-bar-3" style="flex: 1; height: 100%; transition: background-color 0.3s ease;"></div>
+                                            </div>
+                                            <span id="strength-text" style="font-size: 9px; font-weight: 600; margin-top: 3px; display: block; color: var(--text-muted); min-height: 11px;">Şifre gücü analizi...</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="new_password_confirm" class="form-label" style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Yeni Şifre Tekrar</label>
+                                        <div style="position: relative;">
+                                            <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 12px;"><i class="fa-solid fa-key"></i></span>
+                                            <input type="password" id="new_password_confirm" name="new_password_confirm" class="form-input" style="padding-left: 36px; padding-top: 9px; padding-bottom: 9px;" required autocomplete="new-password" placeholder="Onaylayın">
+                                        </div>
+                                    </div>
+
+                                    <div style="text-align: right; margin-top: 5px;">
+                                        <button type="submit" class="btn-primary" style="padding: 8px 16px; font-size: 13px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);">
+                                            <i class="fa-solid fa-shield-check"></i> Şifre Güncelle
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1036,20 +1144,146 @@ $extra_pay = 200.00;
 
 
 
-        // IBAN Kopyalama Fonksiyonu
+        // IBAN Kopyalama Fonksiyonu (TR ön eki eklenerek)
         function copyIban() {
             const ibanInput = document.getElementById('profile_iban');
-            ibanInput.select();
-            ibanInput.setSelectionRange(0, 99999); // Mobil için
-            navigator.clipboard.writeText(ibanInput.value).then(() => {
+            const cleanVal = ibanInput.value.replace(/\s+/g, '');
+            const fullIban = cleanVal.substring(0, 2) === 'TR' ? cleanVal : 'TR' + cleanVal;
+            
+            navigator.clipboard.writeText(fullIban).then(() => {
                 const copyBtn = document.querySelector('.iban-btn-copy');
                 const originalIcon = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="fa-solid fa-circle-check" style="color:var(--success);"></i>';
+                copyBtn.innerHTML = '<i class="fa-solid fa-circle-check" style="color:#10b981;"></i>';
                 
                 setTimeout(() => {
                     copyBtn.innerHTML = originalIcon;
                 }, 1500);
             });
+        }
+
+        // ----------------------------------------------------
+        // PROFILE SUBTAB & BANK DETECTOR & PASSWORD STRENGTH
+        // ----------------------------------------------------
+        document.addEventListener('DOMContentLoaded', () => {
+            const subtabBtns = document.querySelectorAll('.subtab-btn');
+            const subPanels = document.querySelectorAll('.sub-panel');
+            
+            subtabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetSub = btn.getAttribute('data-sub');
+                    
+                    // Switch active button
+                    subtabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Switch active panel
+                    subPanels.forEach(p => {
+                        if (p.id === `subpanel-${targetSub}`) {
+                            p.classList.add('active');
+                        } else {
+                            p.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // IBAN bank detector initial and event listener
+            const ibanInput = document.getElementById('profile_iban');
+            if (ibanInput) {
+                const triggerDetection = () => {
+                    const val = ibanInput.value;
+                    const textEl = document.getElementById('bank-detector-text');
+                    if (!textEl) return;
+                    
+                    const cleanVal = val.replace(/\s+/g, '').toUpperCase();
+                    if (cleanVal.length < 4) {
+                        textEl.innerText = "";
+                        return;
+                    }
+                    
+                    // Add TR check
+                    let checkVal = cleanVal;
+                    if (checkVal.substring(0, 2) === "TR") {
+                        checkVal = checkVal.substring(2);
+                    }
+                    
+                    const bankCode = checkVal.substring(2, 7);
+                    let bankName = "";
+                    if (bankCode === "00010") bankName = "T.C. Ziraat Bankası";
+                    else if (bankCode === "00012") bankName = "Türkiye Halk Bankası";
+                    else if (bankCode === "00015") bankName = "Türkiye Vakıflar Bankası (Vakıfbank)";
+                    else if (bankCode === "00062") bankName = "Türkiye Garanti Bankası (Garanti BBVA)";
+                    else if (bankCode === "00064") bankName = "Türkiye İş Bankası";
+                    else if (bankCode === "00046") bankName = "Akbank";
+                    else if (bankCode === "00111") bankName = "QNB Finansbank";
+                    else if (bankCode === "00032") bankName = "Türk Ekonomi Bankası (TEB)";
+                    else if (bankCode === "00067") bankName = "Yapı ve Kredi Bankası";
+                    else if (bankCode === "00205") bankName = "Kuveyt Türk Katılım Bankası";
+                    else if (bankCode === "00206") bankName = "Türkiye Finans Katılım Bankası";
+                    else if (bankCode === "00092") bankName = "Denizbank";
+                    else if (bankCode === "00123") bankName = "HSBC Bank";
+                    else if (bankCode === "00146") bankName = "Odeabank";
+                    
+                    if (bankName) {
+                        textEl.innerHTML = `<i class="fa-solid fa-building-columns"></i> Tespit Edilen Banka: <strong>${bankName}</strong>`;
+                        textEl.style.color = "#10b981"; // Success green
+                    } else {
+                        if (checkVal.length >= 22) {
+                            textEl.innerHTML = `<i class="fa-solid fa-circle-question"></i> Bilinmeyen / Diğer Banka`;
+                            textEl.style.color = "var(--text-secondary)";
+                        } else {
+                            textEl.innerText = "";
+                        }
+                    }
+                };
+
+                ibanInput.addEventListener('keyup', triggerDetection);
+                ibanInput.addEventListener('change', triggerDetection);
+                triggerDetection(); // Run on load
+            }
+        });
+
+        // Şifre Gücü Analizi
+        function checkPasswordStrength(password) {
+            const bar1 = document.getElementById('strength-bar-1');
+            const bar2 = document.getElementById('strength-bar-2');
+            const bar3 = document.getElementById('strength-bar-3');
+            const text = document.getElementById('strength-text');
+            
+            if (!bar1 || !bar2 || !bar3 || !text) return;
+            
+            // Sıfırla
+            bar1.style.backgroundColor = "";
+            bar2.style.backgroundColor = "";
+            bar3.style.backgroundColor = "";
+            
+            if (password.length === 0) {
+                text.innerText = "Şifre gücü analizi bekleniyor...";
+                text.style.color = "var(--text-muted)";
+                return;
+            }
+            
+            let score = 0;
+            if (password.length >= 6) score++;
+            if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
+            if (/[0-9]/.test(password) || /[^A-Za-z0-9]/.test(password)) score++;
+            
+            if (score === 1) {
+                bar1.style.backgroundColor = "#ef4444"; // Zayıf (Kırmızı)
+                text.innerText = "Zayıf Şifre - Büyük/küçük harf veya sayı ekleyin.";
+                text.style.color = "#ef4444";
+            } else if (score === 2) {
+                bar1.style.backgroundColor = "#fbbf24"; // Orta (Sarı)
+                bar2.style.backgroundColor = "#fbbf24";
+                text.innerText = "Orta Şifre - Özel karakter ekleyerek güçlendirin.";
+                text.style.color = "#fbbf24";
+            } else if (score === 3) {
+                bar1.style.backgroundColor = "#10b981"; // Güçlü (Yeşil)
+                bar2.style.backgroundColor = "#10b981";
+                bar3.style.backgroundColor = "#10b981";
+                text.innerText = "Güçlü Şifre - Hesabınız güvende.";
+                text.style.color = "#10b981";
+            }
         }
 
         // ----------------------------------------------------

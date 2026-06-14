@@ -2197,3 +2197,49 @@ body.dark-theme .user-profile:hover {
     background-color: var(--border-color);
     margin: 6px 10px;
 }
+
+/* =====================================================================
+   8. PROFILE INNER SUBTABS STYLING
+   ===================================================================== */
+.sub-panel {
+    display: none;
+    animation: subtabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sub-panel.active {
+    display: block;
+}
+
+@keyframes subtabFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.subtab-btn {
+    border: none;
+    background: none;
+    color: var(--text-secondary) !important;
+    outline: none;
+}
+
+.subtab-btn:hover {
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: var(--text-primary) !important;
+}
+
+.subtab-btn.active {
+    background: var(--bg-main) !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+body.dark-theme .subtab-btn.active {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}

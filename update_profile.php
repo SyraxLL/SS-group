@@ -29,6 +29,14 @@ if ($action === 'update_info') {
     $iban = isset($_POST['iban']) ? trim($_POST['iban']) : '';
     $address = isset($_POST['address']) ? trim($_POST['address']) : '';
     
+    // TR ön ekini temiz veya eksik girilme ihtimaline karşı ekle
+    if (!empty($iban)) {
+        $iban = preg_replace('/\s+/', '', $iban); // Boşlukları temizle
+        if (strtoupper(substr($iban, 0, 2)) !== 'TR') {
+            $iban = 'TR' . $iban;
+        }
+    }
+    
     try {
         $stmt = $pdo->prepare("UPDATE users SET phone = :phone, iban = :iban, address = :address WHERE id = :id");
         $stmt->execute([

@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `salary_history` (
 
 -- NOT: Şifreler bcrypt algoritması ile şifrelenmiştir. (Şifreler: ahmet123 ve mehmet456)
 INSERT IGNORE INTO `users` (`id`, `username`, `password_hash`, `full_name`, `email`, `department`, `company`, `avatar_url`, `iban`, `phone`, `address`, `salary`) VALUES
-(1, 'ahmet.yilmaz', '$2y$10$e0myzW.r5M3E.yLpB5.O5OfqVj.oPZqFw/mXyEwD9P3Qv.1QyZqZy', 'Ahmet Yılmaz', NULL, 'İnsan Kaynakları', 'SS Group', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150', 'TR560006200000012345678901', '+90 (555) 123 45 67', 'Atatürk Mah. Vatan Cad. No:12 D:4 Ümraniye / İstanbul', 45000.00),
+(1, 'ahmet.yilmaz', '$2y$10$e0myzW.r5M3E.yLpB5.O5OfqVj.oPZqFw/mXyEwD9P3Qv.1QyZqZy', 'Ahmet Yılmaz', NULL, 'Operasyon Departmanı', 'SS Group', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150', 'TR560006200000012345678901', '+90 (555) 123 45 67', 'Atatürk Mah. Vatan Cad. No:12 D:4 Ümraniye / İstanbul', 45000.00),
 (2, 'mehmet.demir', '$2y$10$vWd2Gq.hY3gPqF5.t5.O5O2wGj.oPZqFw/mXyEwD9P3Qv.1QyZqZy', 'Mehmet Demir', NULL, 'Yazılım Geliştirme', 'SS Group', 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150', 'TR560006200000098765432109', '+90 (532) 987 65 43', 'Barbaros Mah. Dereboyu Cad. Ağaoğlu Blokları A A2, Ataşehir / İstanbul', 55000.00);
 
 -- Ahmet Yılmaz için Örnek Puantaj Verileri (Haziran 2026)
@@ -102,7 +102,7 @@ INSERT IGNORE INTO `puantaj_records` (`user_id`, `record_date`, `check_in`, `che
 
 -- Örnek Duyurular
 INSERT IGNORE INTO `announcements` (`id`, `title`, `content`) VALUES
-(1, 'Haziran Ayı Puantaj Onayları Hakkında', 'Değerli çalışma arkadaşlarımız, Haziran ayı puantaj kayıtlarınızı kontrol etmeniz ve varsa eksiklikleri en geç 25 Haziran mesai bitimine kadar İnsan Kaynakları departmanına bildirmeniz rica olunur.'),
+(1, 'Haziran Ayı Puantaj Onayları Hakkında', 'Değerli çalışma arkadaşlarımız, Haziran ayı puantaj kayıtlarınızı kontrol etmeniz ve varsa eksiklikleri en geç 25 Haziran mesai bitimine kadar Operasyon departmanına bildirmeniz rica olunur.'),
 (2, 'Yeni Sağlık Sigortası Anlaşması', 'Şirketimiz, çalışanlarımızın özel sağlık sigortası kapsamını SS Group ayrıcalığıyla genişletmiştir. Detaylar ve poliçe örneği İK klasöründe paylaşılmıştır.'),
 (3, 'Ofis İçi Hijyen ve Çalışma Düzeni', 'Ofis ortak alanlarında sosyal düzenin ve çalışma verimliliğinin korunması amacıyla belirlenen çalışma kurallarına gösterdiğiniz hassasiyet için teşekkür ederiz.');
 
