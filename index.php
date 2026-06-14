@@ -44,18 +44,16 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
         body {
             font-family: 'Inter', sans-serif;
-            /* Vibrant Static Gradient Background */
-            background: radial-gradient(circle at 10% 20%, #1e3a8a 0%, transparent 45%),
-                radial-gradient(circle at 90% 80%, #701a75 0%, transparent 45%),
-                radial-gradient(circle at 50% 15%, #311042 0%, transparent 50%),
-                linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            /* Simple and Premium Grayish Background */
+            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
             position: relative;
-            padding: 24px;
+            padding: 24px 16px;
         }
 
         /* 2. Static Background Grid overlay (no movement) */
